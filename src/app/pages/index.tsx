@@ -22,8 +22,13 @@ const Home: React.FC = () => {
   return (
     <div>
       <h1>Lista de Pontos Turísticos</h1>
-      <PointsList points={points} />
-      <Map points={points} />
+      <PointsList points={points} loading={false} />
+      <Map center={{
+        lat: 0,
+        lng: 0
+      }} onPointsUpdate={function (_points: Point[]): void {
+        throw new Error('Function not implemented.');
+      } }  />
     </div>
   );
 }

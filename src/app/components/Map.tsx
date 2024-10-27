@@ -26,7 +26,7 @@ const containerStyle = {
 };
 
 const Map: FC<MapProps> = ({ center, onPointsUpdate }) => {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [selected, setSelected] = useState<Point | null>(null);
 
   useEffect(() => {
@@ -39,6 +39,7 @@ const Map: FC<MapProps> = ({ center, onPointsUpdate }) => {
         type: 'tourist_attraction',
       };
 
+      setLoading(true);
       service.nearbySearch(request, (results, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK && results) {
           const places: Point[] = results.map((result) => {
@@ -59,8 +60,9 @@ const Map: FC<MapProps> = ({ center, onPointsUpdate }) => {
         } else {
           onPointsUpdate([]); // No results or error, still update
         }
-        setLoading(false); // Loading is complete
+         // Loading is complete
       });
+      setLoading(false);
     };
 
     if (window.google) {
